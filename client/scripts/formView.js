@@ -1,6 +1,6 @@
 var FormView = {
 
-  $form: $('form'), 
+  $form: $('form'),
 
   initialize: function() {
     FormView.$form.on('submit', FormView.handleSubmit); // when submit button is clicked, invoke handlesubmit method
@@ -18,19 +18,20 @@ var FormView = {
     };
 
     // define success callback
-    var success = function () {
+    var success = function (response) {
+      console.log(response);
       // clear text box after success
       $('#message').val("");
       Parse.readAll(data => RoomsView.renderRoom($('select').val(), data));
     };
 
     Parse.create(message, success);
-    
+
 
     console.log('click!');
   },
 
-  
+
   setStatus: function(active) {
     var status = active ? 'true' : null;
     //toggle attr from disabled

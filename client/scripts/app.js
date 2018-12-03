@@ -21,13 +21,14 @@ var App = {
   fetch: function (callback = () => {}) {
 
     Parse.readAll((data) => {
+      console.log(data);
       //find the unique values of the room names
       var rooms = _.uniq(_.pluck(data.results, "roomname"));
       //add those rooms to the select
       _.each(rooms, (room) => Rooms.add(room));
       // pick default and render chats for that room
-      RoomsView.$select.val(rooms[1]);
-      RoomsView.renderRoom(rooms[1], data);
+      RoomsView.$select.val(rooms[0]);
+      RoomsView.renderRoom(rooms[0], data);
 
       callback();
     });

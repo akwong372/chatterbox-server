@@ -64,6 +64,42 @@ var requestHandler = function(request, response) {
   var statusCode;
 
   if (request.url === '/classes/messages') {
+
+    if (request.method === 'OPTIONS') {
+      statusCode = 200; //check
+      response.writeHead(statusCode, headers);
+      response.end(JSON.stringify(
+        {
+          'POST': {
+            'description': 'Create a message',
+            'parameters': {
+              'username': {
+                'type': 'string',
+                'description': 'Name or user.',
+                'required': true
+              },
+              'text': {
+                'type': 'string',
+                'description': 'Message body.',
+                'required': true
+              },
+              'roomname': {
+                'type': 'string',
+                'description': 'Name of chat room.',
+                'required': true
+              },
+            },
+            'example': {
+              'username': 'mr. dog',
+              'text': 'woof woof',
+              'roomname': 'dog palace'
+            }
+          }
+        }
+      ));
+
+    }
+
     if (request.method === 'GET') {
       statusCode = 200;
       response.writeHead(statusCode, headers);
@@ -77,15 +113,11 @@ var requestHandler = function(request, response) {
       });
       statusCode = 201;
       response.writeHead(statusCode, headers);
-      response.end('ok');
+      response.end(JSON.stringify(messages));
     }
   } else {
     statusCode = 404;
-    // request.on('error', error => {
-    //   console.log(statusCode);
-    // });
     response.writeHead(statusCode, headers);
-    // console.log(response);
     response.end(statusCode + ' error');
   }
   // Make sure to always call response.end() - Node may not send
@@ -106,3 +138,5 @@ var requestHandler = function(request, response) {
 
 
 exports.requestHandler = requestHandler;
+
+
