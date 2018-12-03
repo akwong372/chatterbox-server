@@ -1,8 +1,8 @@
 var RoomsView = {
-  
+
   $button: $('#rooms button'),
   $select: $('#rooms select'),
-  
+
   initialize: function () {
     RoomsView.$button.on('click', RoomsView.handleAddButton);
     //event handler for addbutton click()
@@ -14,12 +14,12 @@ var RoomsView = {
     var roomname = prompt('Enter roomname');
     Rooms.add(roomname);
   },
-  
-  handleSelectChange: function(){
+
+  handleSelectChange: function() {
     Parse.readAll(data => RoomsView.renderRoom(RoomsView.$select.val(), data));
   },
 
-  
+
   renderRoom: function (roomname, data) {
     // get updated data from server and filter for the messages in the current chat room
     var chatData = _.filter(data.results, message => {
@@ -32,6 +32,6 @@ var RoomsView = {
     // add the updated messages to chat area
     _.each(chatData, (message) => MessagesView.renderMessage(message));
   }
-  
+
 };
 

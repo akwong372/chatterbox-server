@@ -21,7 +21,6 @@ var App = {
   fetch: function (callback = () => {}) {
 
     Parse.readAll((data) => {
-      console.log(data);
       //find the unique values of the room names
       var rooms = _.uniq(_.pluck(data.results, "roomname"));
       //add those rooms to the select

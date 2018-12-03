@@ -18,11 +18,10 @@ var FormView = {
     };
 
     // define success callback
-    var success = function (response) {
-      console.log(response);
+    var success = function () {
       // clear text box after success
-      $('#message').val("");
-      Parse.readAll(data => RoomsView.renderRoom($('select').val(), data));
+      $('#message').val('');
+      Parse.readAll((data) => RoomsView.renderRoom($('select').val(), data));
     };
 
     Parse.create(message, success);

@@ -27,7 +27,7 @@ var defaultCorsHeaders = {
   'access-control-max-age': 10 // Seconds.
 };
 
-var messages = {results: []};
+var messages = {results: [{username: 'Sir Dog', text: 'Welcome, human!', roomname: 'lobby'}]};
 
 var requestHandler = function(request, response) {
 
@@ -129,12 +129,6 @@ var requestHandler = function(request, response) {
   // node to actually send all the data over to the client.
   // response.end('Hello, World!');
 };
-
-// var message = {
-//   username: 'username',
-//   text: 'message',
-//   roomname: 'roomname'
-// };
 
 
 exports.requestHandler = requestHandler;
