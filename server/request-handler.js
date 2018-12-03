@@ -73,8 +73,7 @@ var requestHandler = function(request, response) {
     if (request.method === 'POST') {
       request.on('data', message => {
         // https://nodejs.org/api/stream.html
-        // console.log(message.toString());
-        messages.results.push(message.toString());
+        messages.results.push(JSON.parse(message.toString()));
       });
       statusCode = 201;
       response.writeHead(statusCode, headers);
