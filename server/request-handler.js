@@ -27,7 +27,8 @@ var defaultCorsHeaders = {
   'access-control-max-age': 10 // Seconds.
 };
 
-var messages = {results: [{username: 'Sir Dog', text: 'Welcome, human!', roomname: 'lobby'}]};
+// var messages = {results: [{username: 'Sir Dog', text: 'Welcome, human!', roomname: 'lobby'}]};
+var messages = {results: []};
 
 var requestHandler = function(request, response) {
 
