@@ -86,7 +86,7 @@ var requestHandler = function(request, response) {
     // });
     response.writeHead(statusCode, headers);
     // console.log(response);
-    response.end(statusCode);
+    response.end(statusCode + ' error');
   }
   // Make sure to always call response.end() - Node may not send
   // anything back to the client until you do. The string you pass to

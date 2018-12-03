@@ -38,7 +38,8 @@ describe('server', function() {
       uri: 'http://127.0.0.1:3000/classes/messages',
       json: {
         username: 'Jono',
-        text: 'Do my bidding!'}
+        text: 'Do my bidding!',
+        roomname: 'hello'}
     };
 
     request(requestParams, function(error, response, body) {
@@ -52,7 +53,9 @@ describe('server', function() {
       uri: 'http://127.0.0.1:3000/classes/messages',
       json: {
         username: 'Jono',
-        text: 'Do my bidding!'}
+        text: 'Do my bidding!',
+        roomname: 'hello'
+      }
     };
 
     request(requestParams, function(error, response, body) {
@@ -61,6 +64,7 @@ describe('server', function() {
         var messages = JSON.parse(body).results;
         expect(messages[0].username).to.equal('Jono');
         expect(messages[0].text).to.equal('Do my bidding!');
+        expect(messages[0].roomname).to.equal('hello');
         done();
       });
     });
