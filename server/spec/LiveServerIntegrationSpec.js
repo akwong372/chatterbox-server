@@ -77,5 +77,38 @@ describe('server', function() {
     });
   });
 
+  it('should respond with truncated messages if message text is greater than 250 characters', function(done) {
+    var requestParams = {method: 'POST',
+      uri: 'http://127.0.0.1:3000/classes/messages',
+      json: {
+        username: 'Jono',
+        text: 'something something something something something something something something something something something something something something something something something something something something something something something something something end thing ',
+        roomname: 'hello'
+      }
+    };
+
+    request(requestParams, function(error, response, body) {
+      request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
+        var messages = JSON.parse(body).results;
+        expect(messages[messages.length - 1].text).to.have.lengthOf(250);
+        done();
+      });
+    });
+  });
+
+  it('should not accept incomplete POST requests to /classes/messages', function(done) {
+    var requestParams = {method: 'POST',
+      uri: 'http://127.0.0.1:3000/classes/messages',
+      json: {
+        username: 'Jono',
+        roomname: 'hello'}
+    };
+
+    request(requestParams, function(error, response, body) {
+      expect(response.statusCode).to.equal(400);
+      done();
+    });
+  });
+
 
 });
