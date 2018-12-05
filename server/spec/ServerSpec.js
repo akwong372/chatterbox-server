@@ -105,4 +105,59 @@ describe('Node Server Request Listener Function', function() {
     expect(res._ended).to.equal(true);
   });
 
+  // a really long message
+  it('Should not accept messages greater than 250 characters posts /classes/messages', function() {
+    var stubMsg = {
+      username: 'Jono',
+      text: 'something something something something something something something something something something something something something something something something something something something something something something something something something end thing ',
+      roomname: 'hello'
+    };
+    var req = new stubs.request('/classes/messages', 'POST', stubMsg);
+    var res = new stubs.response();
+
+    handler.requestHandler(req, res);
+
+    var messages = JSON.parse(res._data).results;
+    expect(messages[messages.length - 1].text.length).to.equal(250);
+    expect(res._ended).to.equal(true);
+  });
+
+  // a incomplete message object
+  it('Should not accept incomplete posts /classes/messages', function() {
+    var stubMsg = {
+      username: 'Jono',
+      roomname: 'hello'
+    };
+    var req = new stubs.request('/classes/messages', 'POST', stubMsg);
+    var res = new stubs.response();
+
+    handler.requestHandler(req, res);
+
+    // Expect 400 Created response status for invalid input
+    expect(res._responseCode).to.equal(400);
+
+    expect(res._ended).to.equal(true);
+  });
+
+    // a message object with additonal attributes not supported
+    it('Should not accept incomplete posts /classes/messages', function() {
+      var stubMsg = {
+        username: 'Jono',
+        text: 'hey there',
+        roomname: 'hello',
+        age: '14',
+        city: 'london'
+      };
+      var req = new stubs.request('/classes/messages', 'POST', stubMsg);
+      var res = new stubs.response();
+
+      handler.requestHandler(req, res);
+
+      // Expect 400 Created response status for invalid input
+      expect(res._responseCode).to.equal(400);
+
+      expect(res._ended).to.equal(true);
+    });
+
+
 });
